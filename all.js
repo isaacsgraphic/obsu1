@@ -7,6 +7,50 @@
   ga('create', 'UA-42896410-1', 'brookesunion.org.uk');
   ga('send', 'pageview');
 
+
+
+
+/* auto scroll */
+// function EnableAutoLoadMore(buttonElement, contentElement) {
+//     $(window).bind('scroll', function() {
+//         if (typeof $(buttonElement).first().attr('data-loadmore') === typeof undefined || $(buttonElement).first().attr('data-loadmore') == false) {
+//             $(buttonElement).first().attr('data-loadmore', 0);
+//         }
+//         if ($(buttonElement + ':visible').length > 0) {
+//             if (($(window).height() + $(document).scrollTop()) > ($(buttonElement).first().offset().top - 80) && $(contentElement).first().children().length > $(buttonElement).first().attr('data-loadmore')) {
+//                 $(buttonElement).first().attr('data-loadmore', $(contentElement).first().children().length);
+//                 $(buttonElement).click();
+//             }
+//         }
+//     });
+
+// }
+
+// $(function() {
+//     if (window.location.pathname.substring(0, 7) == '/events' && window.location.pathname.length <= 8) {
+//         EnableAutoLoadMore('#load-more-events', '#uc-event-right-panel-listing');
+//     } else if (window.location.pathname.substring(0, 7) == '/groups') {
+//         EnableAutoLoadMore('#uc-more-group-search', '.category-box-wrapper');
+//         $('.club-navigation ul li').click(function() {
+//             $('#uc-more-group-search').first().attr('data-loadmore', 0);
+//         });
+//         $('.group-types-wrapper ul li').click(function() {
+//             $('#uc-more-group-search').first().attr('data-loadmore', 0);
+//         });
+//     } else if (window.location.pathname.substring(0, 9) == '/articles' && window.location.pathname.length <= 10) {
+//         EnableAutoLoadMore('#load_more_article', '.uc-articles-listing');
+//     } else if (window.location.pathname.substring(0, 16) == '/thestudentvoice' && window.location.pathname.length <= 17) {
+//         EnableAutoLoadMore('#load_more_sv', '.uc-sv-left-panel-wrapper');
+//         $('#uc-sv-navigation li a').click(function() {
+//             $('#load_more_sv').first().attr('data-loadmore', 0);
+//         });
+//     }
+// });
+
+// $('html, body').bind('scroll mousedown DOMMouseScroll mousewheel keyup touchstart', function() {
+//     $('html, body').stop();
+// });
+
 // -------------------------------------------------------------
 //                                                      Top menu
 // -------------------------------------------------------------
@@ -185,7 +229,7 @@ $(document).ready(function(){
 // Set the date we're counting down to
 var countDownDate = new Date("September 14, 2020 08:12:00").getTime();
 
-
+$(document).ready(function(){
 if ($(".countdown").length){ //run if there's a countdown element on the page.
   var x = setInterval(function() {  // Update the countdown every 1 second
 
@@ -230,7 +274,7 @@ if ($(".countdown").length){ //run if there's a countdown element on the page.
 
   }, 1000);
 }
-
+});
 // -------------------------------------------------------------
 //                                              Load More Events
 // -------------------------------------------------------------
@@ -291,7 +335,175 @@ function revealMoreItems(){
         $("#event-list li:nth-child("+ (numberRevealed+4) +")").removeClass("hide");
         numberRevealed = (numberRevealed+4);
 }
+function delay_load_events() {
+    setTimeout(function() {
+        load_events()
+    }, 9e3)
+}
+function load_events() {
+    $.ajax({
+        type: "GET",
+        style: "inherit",
+        dataType: "script",
+        url: window.location.origin + "/groups/group_type_events" + window.location.search
+    }).done(function() {})
+}
+var offset = 0
+  , group_cat = ""
+  , group_type = ""
+  , isSafari = /\sSafari\//.test(navigator.userAgent) && 0 == navigator.vendor.indexOf("Apple");
+if (isSafari) {
+    var page_loaded = !1;
+    window.onpopstate = function() {
+        if (!page_loaded)
+            return page_loaded = !0,
+            !1;
+        window.location.reload()
+    }
+} else
+    window.onpopstate = function() {
+        window.location.reload()
+    }
+    ;
 $(function() {
-    function e() { $(".uc-icon1, .tool-bar-shadow a, .uc-icons-wrapper a").each(function() { $(this).toggleClass("tool-tip-display") }) } $("#toolbar-accordian").accordion({ collapsible: !0 }), $("#catalog li").draggable({ appendTo: "body", helper: "clone" }), $(".uc-toolbar-wrapper").hide(), $(".uc-toolbar-wrapper").addClass("uc-toolbar-wrapper-visiblity"), $(".uc-toolbar-settings-icon-cross").hide(), $(".uc-toolbar-settings-icon").hide(), $(".uc-toolbar-settings-icon").animate({ left: "-20px" }), $(".uc-toolbar-settings-icon-cross").animate({ left: "-20px" }), $(".uc-toolbar-settings-icon").on("click", function() { $(".uc-toolbar-wrapper").toggle("slide"), $(".uc-toolbar-settings-icon").hide(), $(".uc-toolbar-settings-icon").animate({ left: "-20px" }), $(".uc-toolbar-settings-icon-cross").show(), $(".uc-toolbar-settings-icon-cross").animate({ left: "232px" }, 400) }), $(".uc-toolbar-settings-icon-cross").on("click", function() { $(".uc-toolbar-wrapper").toggle("slide"), $(".uc-toolbar-settings-icon").show(), $(".uc-toolbar-settings-icon-cross").hide(), $(".uc-toolbar-settings-icon-cross").animate({ left: "0" }, 400) }), $(".drag-handle").draggable({ helper: "clone", revert: "invalid", start: function(t, i) { $(this).css("visibility", "hidden"), e(), $(".uc-menu.addlink").css("display", "none"), i.helper.width($(this).width()) }, stop: function() { $(this).css("visibility", "visible"), $(".tip-twitter").remove(), $(".uc-menu.addlink").css("display", "block"), e() } }), $(".uc-toolbar-settings-icon").show(); var t = $("#toolbar_on_off").val(); "on" == t ? ($(".uc-toolbar-settings-icon").hide(), $(".uc-toolbar-settings-icon-cross").show(), $(".uc-toolbar-settings-icon-cross").animate({ left: "232px" }, 400), $(".uc-toolbar-wrapper").show(), $(".uc-toolbar-wrapper").addClass("uc-toolbar-wrapper-visiblity")) : $(".uc-overlay").hide() });
-for (var switches = document.querySelectorAll('input[type="checkbox"].ios-switch'), i = 0, sw; sw = switches[i++];) { var div = document.createElement("div");
-    div.className = "switch", sw.parentNode.insertBefore(div, sw.nextSibling) }
+    function e() {
+        group_type = $(".tree-navigation li.active a").find(".group-type-hidden-id").html(),
+        group_cat = $(".group-types li.active a").find(".group-cat-hidden-id").html(),
+        navigate_group_type_name = $(".navigate_group_type_name").val(),
+        navigate_group_cat_name = $(".navigate_group_cat_name").val(),
+        $(".navigate_group_type_id").val(group_type),
+        search_text_to_search = $("#search_keyword").val(),
+        null == group_type && (group_type = ""),
+        null == group_cat && (group_cat = ""),
+        null == search_text_to_search && (search_text_to_search = ""),
+        group_cat_and_groups_path = rewrite_url_for_js("/groups/group_cat_and_groups?group_type=" + group_type + "&group_cat=" + group_cat + "&search=" + search_text_to_search),
+        $.ajax({
+            type: "GET",
+            style: "inherit",
+            dataType: "script",
+            url: group_cat_and_groups_path
+        }).done(function() {
+            $("#uc-more-group-search").show(),
+            "false" == $("#uc-load_search_button").val() && $("#uc-more-group-search").hide();
+            var e = $("#group_category_id").val();
+            $(".group-types li").removeClass("active"),
+            $(".group-types li:eq(0)").addClass("active"),
+            $(".group-types li").each(function() {
+                var a = $(this).find(".group-cat-hidden-id").html();
+                e == a && ($(".group-types li").removeClass("active"),
+                $(this).closest("li").addClass("active"))
+            }),
+            $.fn.ignore = function(e) {
+                return this.clone().find(e || ">*").remove().end()
+            }
+            ,
+            e = $(".group-types li.active a").find(".group-cat-hidden-id").html(),
+            cat_text = $(".group-types li.active a").ignore("span").text(),
+            navigate_group_type_name = $(".navigate_group_type_name").val(),
+            navigate_group_cat_name = $(".navigate_group_cat_name").val(),
+            group_cat_and_groups_url = rewrite_url_for_js("/groups?group_type=" + navigate_group_type_name + "&group_cat=" + navigate_group_cat_name + "&search=" + encodeURIComponent(search_text_to_search)),
+            history.pushState(null, "", group_cat_and_groups_url)
+        })
+    }
+    navigate_group_type_id = $(".navigate_group_type_id").val(),
+    navigate_group_cat = $(".navigate_group_cat").val(),
+    navigate_group_type_name = $(".navigate_group_type_name").val(),
+    navigate_group_cat_name = $(".navigate_group_cat_name").val(),
+    navigate_search = $(".navigate_search").val(),
+    group_type = $(".tree-navigation li a").find(".group-type-hidden-id").html(),
+    group_cat = $(".group-types li.active a").find(".group-cat-hidden-id").html(),
+    group_type == I18n.t("all") && null != navigate_group_type_id && (group_type = navigate_group_type_id),
+    null === group_cat && null != navigate_group_cat && (group_cat = navigate_group_cat),
+    $(".tree-navigation li").removeClass("active"),
+    $(".group-types li").removeClass("active"),
+    $(".tree-navigation li:eq(0)").removeClass("selected"),
+    $(".tree-navigation li").each(function(e) {
+        span_id = $(this).find("span").text(),
+        navigate_group_type_id == span_id && (0 == e ? ($(this).addClass("active"),
+        $(".tree-navigation li:eq(0)").addClass("selected")) : ($(".tree-navigation li:eq(0)").removeClass("selected"),
+        $(this).addClass("active")),
+        $(".group-types li").find(".group-cat-hidden-id").each(function() {
+            navigate_group_cat == $(this).text() ? ($(".group-types li").removeClass("active"),
+            $(this).closest("li").addClass("active")) : "" == navigate_group_cat && ($(this).closest("li").removeClass("active"),
+            $(".group-types li:eq(0)").addClass("active"))
+        }))
+    }),
+    "false" == $("#uc-load_search_button").val() ? $("#uc-more-group-search").hide() : $("#uc-more-group-search").show(),
+    "" != navigate_group_type_id && "All" != navigate_group_type_id || ($(".tree-navigation li:eq(0)").addClass("active"),
+    $(".group-types li:eq(0)").addClass("active")),
+    $(document).on("click", "#uc-more-group-search", function() {
+        group_type = $(".tree-navigation li.active a").find(".group-type-hidden-id").html(),
+        group_cat = $(".group-types li.active a").find(".group-cat-hidden-id").html(),
+        search_text_to_search = encodeURIComponent($("#search_keyword").val()),
+        "null" == group_type && (group_type = ""),
+        "null" == group_cat && (group_cat = ""),
+        "null" == search_text_to_search && (search_text_to_search = ""),
+        offset += 8,
+        more_groups_path = rewrite_url_for_js("/groups/more_groups?offset=" + offset + "&group_type=" + group_type + "&group_cat=" + group_cat + "&search=" + search_text_to_search),
+        $.ajax({
+            type: "GET",
+            style: "inherit",
+            dataType: "script",
+            url: more_groups_path
+        }).done(function() {
+            $("#uc-more-group-search").show(),
+            "false" == $("#uc-load_search_button").val() && $("#uc-more-group-search").hide(),
+            parseInt($("#group_count").val()) > 0 && $("html, body").animate({
+                scrollTop: $(".categoryBox.all-groups .uc-group-list-page-wrapper").last().offset().top
+            }, 2e3)
+        })
+    }),
+    $(document).on("click", ".tree-navigation li", function() {
+        offset = 0,
+        $(".tree-navigation li").removeClass("active"),
+        $(".group-types li").removeClass("active"),
+        $(".tree-navigation li:eq(0)").removeClass("selected"),
+        $(this).addClass("active"),
+        e(),
+        delay_load_events()
+    }),
+    $(document).on("click", ".group-types li", function() {
+        offset = 0,
+        $(".group-types li").removeClass("active"),
+        $(this).addClass("active"),
+        e(),
+        delay_load_events()
+    }),
+    $("#search_keyword").on("keydown", function(a) {
+        offset = 0,
+        13 == a.keyCode && (e(),
+        delay_load_events())
+    }),
+    $(document).on("click", ".search-button", function() {
+        offset = 0,
+        e(),
+        delay_load_events()
+    }),
+    0 == $("#group_has_overridden_terms_and_conditions").prop("checked") && $("#group_group_terms_and_conditions_input").block({
+        message: null,
+        overlayCSS: {
+            backgroundColor: "#000",
+            opacity: .1,
+            cursor: "default"
+        }
+    }),
+    $(document).on("click", "#group_has_overridden_terms_and_conditions", function() {
+        $("#group_has_overridden_terms_and_conditions").prop("checked") ? $("#group_group_terms_and_conditions_input").unblock() : $("#group_group_terms_and_conditions_input").block({
+            message: null,
+            overlayCSS: {
+                backgroundColor: "#000",
+                opacity: .1,
+                cursor: "default"
+            }
+        })
+    })
+}),
+// $(document).ready(function() {
+//     delay_load_events()
+// });
+
+$(function() {
+    "0" == $("#uc-load_group_count").val() && setTimeout(function() {
+        $("#uc-more-group-search").hide()
+    }, 80)
+});

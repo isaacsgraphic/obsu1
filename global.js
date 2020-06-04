@@ -4,7 +4,7 @@ function EnableAutoLoadMore(buttonElement, contentElement) {
              $(buttonElement).first().attr('data-loadmore', 0);
         }
         if ($(buttonElement + ':visible').length > 0) {
-        	if (($(window).height() + $(document).scrollTop()) > ($(buttonElement).first().offset().top - 80) && $(contentElement).first().children().length > $(buttonElement).first().attr('data-loadmore')) {
+        	if (($(window).height() + $(document).scrollTop()) > ($(buttonElement).first().offset().top - 0) && $(contentElement).first().children().length > $(buttonElement).first().attr('data-loadmore')) {
                 $(buttonElement).first().attr('data-loadmore', $(contentElement).first().children().length);
                 $(buttonElement).click();
             }

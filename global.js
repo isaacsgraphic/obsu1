@@ -13,22 +13,10 @@ $(document).ready(function() {
 
 });
 
-$(document).off("click", "#uc-more-group-search");
-$(document).on("click", "#uc-more-group-search", function() {
-    //loading another item
-    console.log("off and on again");
-
+$(document).ready(function(){
+    $(document).off("click", "#uc-more-group-search");
 });
 
-
-$(document).off("show", "#uc-more-group-search");
-$(document).on("show", "#uc-more-group-search", function() {
-    //loading another item
-    console.log("showing off");
-
+$("#uc-more-group-search").click(function(){
+    console.log("fellowmelad");
 });
-
-
-function delay_load_events(){
-    console.log("toast");
-}

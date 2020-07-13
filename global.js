@@ -304,7 +304,7 @@ $(function() {
 // -------------------------------------------------------------
 $(document).ready(function() {
     $(document).off("click", "#load-more-events"); //remove the original click handler
-    $("#load-more-events").click();
+    if($("#load-more-events").length())$("#load-more-events").click(); //check if there's a button to click, and click it if there is.
 });
 
 function loadEventsWithoutAnimation() {

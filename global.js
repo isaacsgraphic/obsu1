@@ -227,6 +227,39 @@ $(document).ready(function() {
     });
 });
 
+// -------------------------------------------------------------
+//                                      Freshers Countdown Timer
+// -------------------------------------------------------------
+// Set the date we're counting down to
+var countDownDate = new Date("July 23, 2020 17:10:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    
+    //display the section, if javascript is running and timer hasn't run out yet.
+  if (distance > 0) {
+  //   clearInterval(x);
+    document.getElementById("showhide-countdown").style.display = 'block';
+        
+  }
+}, 1000);
 
 // -------------------------------------------------------------
 //                                   Groups page- loading groups
@@ -262,19 +295,19 @@ $("#uc-more-group-search").click(function() {
 
 
 /* auto-click when you scroll down */
-// function EnableAutoLoadMore(buttonElement, contentElement) {
-//     $(window).bind('scroll', function() {
-//         if (typeof $(buttonElement).first().attr('data-loadmore') === typeof undefined || $(buttonElement).first().attr('data-loadmore') == false) {
-//             $(buttonElement).first().attr('data-loadmore', 0);
-//         }
-//         if ($(buttonElement + ':visible').length > 0) {
-//             if (($(window).height() + $(document).scrollTop()) > ($(buttonElement).first().offset().top - 800) && $(contentElement).first().children().length > $(buttonElement).first().attr('data-loadmore')) {
-//                 $(buttonElement).first().attr('data-loadmore', $(contentElement).first().children().length);
-//                 $(buttonElement).click();
-//             }
-//         }
-//     });
-// }
+function EnableAutoLoadMore(buttonElement, contentElement) {
+    $(window).bind('scroll', function() {
+        if (typeof $(buttonElement).first().attr('data-loadmore') === typeof undefined || $(buttonElement).first().attr('data-loadmore') == false) {
+            $(buttonElement).first().attr('data-loadmore', 0);
+        }
+        if ($(buttonElement + ':visible').length > 0) {
+            if (($(window).height() + $(document).scrollTop()) > ($(buttonElement).first().offset().top - 800) && $(contentElement).first().children().length > $(buttonElement).first().attr('data-loadmore')) {
+                $(buttonElement).first().attr('data-loadmore', $(contentElement).first().children().length);
+                $(buttonElement).click();
+            }
+        }
+    });
+}
 
 $(function() {
     if (window.location.pathname.substring(0, 7) == '/events' && window.location.pathname.length <= 8) {
@@ -290,8 +323,6 @@ $(function() {
     } else if (window.location.pathname.substring(0, 9) == '/articles' && window.location.pathname.length <= 10) {
         EnableAutoLoadMore('#load_more_article', '.uc-articles-listing');
     } 
-
-
 //remove auto load on student voice for now
     // else if (window.location.pathname.substring(0, 16) == '/thestudentvoice' && window.location.pathname.length <= 17) {
     //     EnableAutoLoadMore('#load_more_sv', '.uc-sv-left-panel-wrapper');
@@ -370,13 +401,13 @@ function loadArticlesWithoutAnimation() {
                 $(".opporutnity-count-number").html($("#article_count").val()),
                 "true" == $("#show_load_more_button").val() ? $("#load_more_article").show() : $("#load_more_article").hide(),
                 "0" == $("#article_count").val() ? $(".uc-articles-no-listing").show() : $(".uc-articles-no-listing").hide(),
-                parseInt($("#article_count").val()) > 0
-                // ,
-                // $("#uc-article-sub-cat-filter-wrapper ul").jSort({
-                //     sort_by: "label",
-                //     item: "li",
-                //     order: "asc"
-                // })
+                parseInt($("#article_count").val()) > 0 && load_more_clicked && ($("html, body"),
+                load_more_clicked = !1),
+                $("#uc-article-sub-cat-filter-wrapper ul").jSort({
+                    sort_by: "label",
+                    item: "li",
+                    order: "asc"
+                })
                 
             },
             failure: function() {
@@ -485,7 +516,7 @@ function loadArticlesWithoutAnimation() {
 
 //insert our own click handler for the button.
 $("#load_more_article").click(function() {
-    // offset += 0 == offset ? 10 : 8,
-    // load_more_clicked = !0,
+    offset += 0 == offset ? 10 : 8,
+    load_more_clicked = !0,
     loadArticlesWithoutAnimation();
 });

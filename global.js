@@ -83,20 +83,20 @@ function checkSize() {
 // -------------------------------------------------------------
 function expandBlocks() {
     $(".expand-trigger").click(function() {
-        if ($(this).nextAll(".expand-content").hasClass('initUp')) {
-            $(this).nextAll(".expand-content").slideDown(200).removeClass('initUp', 'slidUp').addClass('slidDown');
+        if ($(this).nextAll(".expand-inner").hasClass('initUp')) {
+            $(this).nextAll(".expand-inner").slideDown(200).removeClass('initUp', 'slidUp').addClass('slidDown');
             $(this).next().removeClass('fa-chevron-down').addClass('fa-chevron-up');
-        } else if ($(this).nextAll(".expand-content").hasClass('initDown')) {
-            $(this).nextAll(".expand-content").slideUp(200).removeClass('initDown').addClass('slidUp');
+        } else if ($(this).nextAll(".expand-inner").hasClass('initDown')) {
+            $(this).nextAll(".expand-inner").slideUp(200).removeClass('initDown').addClass('slidUp');
             $(this).next().removeClass('fa-chevron-up').addClass('fa-chevron-down');
-        } else if ($(this).nextAll(".expand-content").hasClass('slidUp')) {
-            $(this).nextAll(".expand-content").slideDown(200).removeClass('slidUp').addClass('slidDown');
+        } else if ($(this).nextAll(".expand-inner").hasClass('slidUp')) {
+            $(this).nextAll(".expand-inner").slideDown(200).removeClass('slidUp').addClass('slidDown');
             $(this).next().removeClass('fa-chevron-down').addClass('fa-chevron-up');
-        } else if ($(this).nextAll(".expand-content").hasClass('slidDown')) {
-            $(this).nextAll(".expand-content").slideUp(200).removeClass('slidDown').addClass('slidUp');
+        } else if ($(this).nextAll(".expand-inner").hasClass('slidDown')) {
+            $(this).nextAll(".expand-inner").slideUp(200).removeClass('slidDown').addClass('slidUp');
             $(this).next().removeClass('fa-chevron-up').addClass('fa-chevron-down');
         } else {
-            $(this).nextAll(".expand-content").slideUp(500).addClass('slidUp');
+            $(this).nextAll(".expand-inner").slideUp(500).addClass('slidUp');
             $(this).next().removeClass('fa-chevron-up').addClass('fa-chevron-down');
         }
     });

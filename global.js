@@ -28,6 +28,7 @@ $(document).ready(function() {
     // move menu to top of page
     // $('#main-menu').remove().insertAfter($('#wyswyg'));
     // checking window size for hamburger menu
+    // console.log("dist/global.js running");
     checkSize();
     // run test on resize of the window
     $(window).resize(checkSize);
@@ -195,7 +196,6 @@ $(window).on('scroll', function() {
 });
 // ---------------------------------------------------Mirage modal windows
 $(document).ready(function() {
-
     // console.log("ping");
     //  linking planks to modal windows
     $(".mirageTrigger").each(function() {
@@ -231,7 +231,7 @@ $(document).ready(function() {
 //                                      Freshers Countdown Timer
 // -------------------------------------------------------------
 // Set the date we're counting down to
-var countDownDate = new Date("July 23, 2020 17:10:00").getTime();
+var countDownDate = new Date("August 23, 2020 17:10:00").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -249,12 +249,13 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="demo"
-  document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
+  if($("#days").length){ document.getElementById("days").innerHTML = days; }
+  if($("#hours").length){ document.getElementById("hours").innerHTML = hours; }
+  if($("#minutes").length){ document.getElementById("minutes").innerHTML = minutes;}
+  if($("#seconds").length){ document.getElementById("seconds").innerHTML = seconds;}
     
-    //display the section, if javascript is running and timer hasn't run out yet.
-  if (distance > 0) {
+    //display the section, if the timer hasn't run out yet, and the countdown element is present on the page.
+  if ((distance > 0)&&($("#showhide-countdown").length)) {
   //   clearInterval(x);
     document.getElementById("showhide-countdown").style.display = 'block';
         
@@ -337,7 +338,7 @@ $(function() {
 // -------------------------------------------------------------
 $(document).ready(function() {
     $(document).off("click", "#load-more-events"); //remove the original click handler
-    if($("#load-more-events").length())$("#load-more-events").click(); //check if there's a button to click, and click it if there is.
+    if($("#load-more-events").length)$("#load-more-events").click(); //check if there's a button to click, and click it if there is.
 });
 
 function loadEventsWithoutAnimation() {

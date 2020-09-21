@@ -28884,7 +28884,7 @@ select {
 
 .myaccount-student-details .unioncommercialemail label,
 .myaccount-subscription-details .unioncommercialemail label {
-  font-weight: regular; }
+  font-weight: normal; }
 
 .myaccount-student-details p,
 .myaccount-student-details label[for="student_user_attributes_opt_in_nus_communication_emails"],

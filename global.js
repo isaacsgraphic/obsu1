@@ -184,8 +184,8 @@ function setHeight(element, proportion) {
 
 $(document).ready(function() {
     $(".parallax-container").css("display", "block");
-    setHeight(".pc-1", 1.3);
-    setHeight(".pc-2", 1);
+    setHeight(".pc-1",0.9);
+    setHeight(".pc-2", 0.6);
     positionParallax(".pc-1");
     positionParallax(".pc-2");
 });

@@ -227,7 +227,7 @@ $(document).ready(function(){
 // -------------------------------------------------------------
 
 // Set the date we're counting down to
-var countDownDate = new Date("September 14, 2020 08:12:00").getTime();
+var countDownDate = new Date("September 14, 2021 08:12:00").getTime();
 
 $(document).ready(function(){
 if ($(".countdown").length){ //run if there's a countdown element on the page.

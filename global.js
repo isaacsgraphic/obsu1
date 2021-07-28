@@ -111,32 +111,33 @@ function shorterISOString(date) {
     return dStr.substring(0, 11) + String(dStr2 + 1) + dStr.substring(13, 16); //put back together, add 1 to the hours number, remove the seconds and milliseconds.
 }
 
-$(document).ready(function() {
-    // Get today's date and time, assign to "now"
-    var now = shorterISOString(new Date());
-    // How many event items do we have? assign to "arrayLength"
-    var arrayLength = $("#event-list li").length;
-    // loop through all items
-    for (var i = 0; i < arrayLength; ++i) {
-        // get data-date attribute from each listed item
-        var currentItemDate = $("#event-list li:nth-child(" + (i + 1) + ")").attr("data-date");
-        // compare to current date and remove from list if it is lower
-        if (currentItemDate < now) {
-            $("#event-list li:nth-child(" + (i + 1) + ")").remove();
-            // set the counter back one, and set the array length one smaller, since you've removed one item
-            i--;
-            arrayLength--;
-            console.log("removed " + currentItemDate);
-        } else {
-            console.log("kept " + currentItemDate);
-        }
-    }
-    // show the first four list items in your altered list.
-    $("#event-list li:nth-child(1)").removeClass("hide");
-    $("#event-list li:nth-child(2)").removeClass("hide");
-    $("#event-list li:nth-child(3)").removeClass("hide");
-    $("#event-list li:nth-child(4)").removeClass("hide");
-});
+// $(document).ready(function() {
+//     // Get today's date and time, assign to "now"
+//     var now = shorterISOString(new Date());
+//     // How many event items do we have? assign to "arrayLength"
+//     console.log(now);
+//     var arrayLength = $("#event-list li").length;
+//     // loop through all items
+//     for (var i = 0; i < arrayLength; ++i) {
+//         // get data-date attribute from each listed item
+//         var currentItemDate = $("#event-list li:nth-child(" + (i + 1) + ")").attr("data-date");
+//         // compare to current date and remove from list if it is lower
+//         if (currentItemDate < now) {
+//             $("#event-list li:nth-child(" + (i + 1) + ")").remove();
+//             // set the counter back one, and set the array length one smaller, since you've removed one item
+//             i--;
+//             arrayLength--;
+//             console.log("removed " + currentItemDate);
+//         } else {
+//             console.log("kept " + currentItemDate);
+//         }
+//     }
+//     // show the first four list items in your altered list.
+//     $("#event-list li:nth-child(1)").removeClass("hide");
+//     $("#event-list li:nth-child(2)").removeClass("hide");
+//     $("#event-list li:nth-child(3)").removeClass("hide");
+//     $("#event-list li:nth-child(4)").removeClass("hide");
+// });
 
 var numberRevealed = 4;
 var numberOfItems = $("#event-list li").length;
